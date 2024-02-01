@@ -6,6 +6,7 @@
 
     <title>Command Executor</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <style>
       #container {
           display: flex;
@@ -51,12 +52,21 @@
 
 
 
-    <script>
+  <script>
+    var socket = io();
+
+    socket.on('connect', function() {
+      console.log('Websocket connected!');
+    });
+
+    socket.on('command_output', function(msg) {
+      $('#output').append(msg.data);
+    });
+
     $('button').click(function() {
         var command = $(this).data('command');
-        $.post('/execute', {command: command}, function(data) {
-            $('#output').text(data);
-        });
+        socket.emit('execute_command', {command: command});
+        $('#output').text(''); // Clear previo
     });
     </script>
 </body>
