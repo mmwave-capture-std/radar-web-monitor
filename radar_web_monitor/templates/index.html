@@ -19,6 +19,7 @@
 
       #container button {
           height: 8vh;
+          min-width: 15vw;
       }
 
     </style>
@@ -26,19 +27,24 @@
 <body>
   <div id="container">
     <div>
-      <button data-command="systemctl --user start mmwave-grpc-server">Start gRPC Server</button>
-      <button id="cmdButton1" data-command="poetry run mmwavecapture-std configs/init_cascaded_realsense.toml">Initialize Radar Parameters</button>
+      <label>gRPC</label>
+      <button data-command="systemctl --user status mmwave-grpc-server">Status</button>
+      <button data-command="systemctl --user start mmwave-grpc-server">Start</button>
+      <button data-command="systemctl --user restart mmwave-grpc-server">Restart</button>
+      <button data-command="systemctl --user stop mmwave-grpc-server">Stop</button>
     </div>
     <div>
+      <label>📡 Proc</label>
+      <button id="cmdButton1" data-command="poetry run mmwavecapture-std configs/init_cascaded_realsense.toml">Init</button>
+      <button id="cmdButton3" data-command="./scripts/fetch_latest_from_evm.sh">Fetch</button>
+      <button id="cmdButton4" data-command="./scripts/preprocessing_latest.sh">Pre-proc</button>
+      <button id="cmdButton5"><a href="#">Post-proc</a></button>
+    </div>
+    <div>
+      <label>📡 Radar</label>
       <button id="cmdButton2" data-command="poetry run mmwavecapture-std configs/cascaded_realsense.toml">Start Recording</button>
-      <button id="cmdButton3" data-command="./scripts/fetch_latest_from_evm.sh">Fetch Latest Recording</button>
-      <button id="cmdButton4" data-command="./scripts/preprocessing_latest.sh">Preprocessing Latest Recording</button>
-      <button id="cmdButton5"><a href="#">Post-processing</a></button>
     </div>
     <div>
-      <button data-command="systemctl --user restart mmwave-grpc-server">Restart gRPC Server</button>
-      <button data-command="systemctl --user stop mmwave-grpc-server">Stop gRPC Server</button>
-      <button data-command="systemctl --user status mmwave-grpc-server">Check gRPC Server Status</button>
     </div>
     <pre id="output"></pre>
   </div>
