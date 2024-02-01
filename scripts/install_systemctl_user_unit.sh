@@ -1,5 +1,7 @@
 #!/bin/sh
 
+mkdir -p ~/.config/systemd/user/
+
 cp mmwave-grpc-server.service \
    ~/.config/systemd/user/
 

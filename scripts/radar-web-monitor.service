@@ -3,7 +3,7 @@ Description=Radar web monitor
 
 [Service]
 WorkingDirectory=%c
-ExecStart=%p run gunicorn -w 2 "radar_web_monitor:app"
+ExecStart=%p run gunicorn -w 2 -b 0.0.0.0 "radar_web_monitor:app"
 
 [Install]
 WantedBy=default.target
