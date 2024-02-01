@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "radar-web-monitor"
+version = "0.1.0"
+description = ""
+authors = ["Louie lu <louielu@cs.unc.edu>"]
+license = "BSD-3-Clause-Clear"
+readme = "README.md"
+packages = [{include = "radar_web_monitor"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Flask = "^3.0.1"
+mmwave-capture-std = {git = "https://github.com/mmwave-capture-std/mmwave-capture-std.git", rev = "add-grpc-cascade"}
+lxml = "^5.1.0"
+requests = "^2.31.0"
+
+
+[tool.poetry.group.dev.dependencies]
+gunicorn = "^21.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

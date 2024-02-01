@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Command Executor</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+      #container {
+          display: flex;
+          flex-direction: column;
+          margin: 10px;
+      }
+
+      #container div {
+          margin-bottom: 10px;
+      }
+
+      #container button {
+          height: 40px;
+      }
+
+    </style>
+</head>
+<body>
+  <div id="container">
+    <div>
+      <button data-command="systemctl --user start mmwave-grpc-server">Start gRPC Server</button>
+      <button id="cmdButton1" data-command="poetry run mmwavecapture-std configs/init_cascaded_realsense.toml">Initialize Radar Parameters</button>
+    </div>
+    <div>
+      <button id="cmdButton2" data-command="poetry run mmwavecapture-std configs/cascaded_realsense.toml">Start Recording</button>
+      <button id="cmdButton3" data-command="./scripts/fetch_latest_from_evm.sh">Fetch Latest Recording</button>
+      <button id="cmdButton4" data-command="./scripts/preprocessing_latest.sh">Preprocessing Latest Recording</button>
+      <button id="cmdButton5"><a href="#">Post-processing</a></button>
+    </div>
+    <div>
+      <button data-command="systemctl --user restart mmwave-grpc-server">Restart gRPC Server</button>
+      <button data-command="systemctl --user stop mmwave-grpc-server">Stop gRPC Server</button>
+      <button data-command="systemctl --user status mmwave-grpc-server">Check gRPC Server Status</button>
+    </div>
+    <pre id="output"></pre>
+  </div>
+
+
+
+    <script>
+    $('button').click(function() {
+        var command = $(this).data('command');
+        $.post('/execute', {command: command}, function(data) {
+            $('#output').text(data);
+        });
+    });
+    </script>
+</body>
+</html>

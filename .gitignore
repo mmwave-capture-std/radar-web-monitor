@@ -1,0 +1,6 @@
+configs/*
+cascaded_dataset/
+
+*.pyc
+*.~
+*~

@@ -1,0 +1,8 @@
+[Unit]
+Description=Cascade mmwave gRPC server
+
+[Service]
+ExecStart=%h/.local/bin/mmwave-grpc-server/CascadedServer
+
+[Install]
+WantedBy=default.target
