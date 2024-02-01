@@ -1,0 +1,3 @@
+[submodule "submodules/cascaded-radar-capture-gRPC-server"]
+	path = submodules/cascaded-radar-capture-gRPC-server
+	url = git@github.com:mmwave-capture-std/cascaded-radar-capture-gRPC-server.git
