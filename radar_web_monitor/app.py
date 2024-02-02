@@ -4,7 +4,7 @@ import shlex
 from flask import Flask, render_template, request, jsonify, Response
 from flask_socketio import SocketIO
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static")
 app.config["SECRET_KEY"] = "oaiesnt#!ehA21$&ndhienasrUns"
 socketio = SocketIO(app)
 
