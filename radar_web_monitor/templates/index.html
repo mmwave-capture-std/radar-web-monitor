@@ -22,8 +22,8 @@
           height: 8vh;
           min-width: 15vw;
       }
-
     </style>
+
     <style>
         /* Style the tab */
         .tab {
@@ -59,6 +59,10 @@
             padding: 6px 12px;
             border: 1px solid #ccc;
             border-top: none;
+        }
+
+        .plot-tablinks {
+            min-width: 0 !important;
         }
     </style>
 
@@ -97,7 +101,11 @@
     });
 
     $('#container button').click(function() {
-        var command = $(this).data('command');
+      var command = $(this).data('command');
+      if (typeof command === "undefined") {
+        return;
+      }
+
         socket.emit('execute_command', {command: command});
         $('#output' + tab).text(''); // Clear previo
     });
@@ -116,8 +124,21 @@
   }
   document.getElementById(tabName).style.display = "block";
   evt.currentTarget.className += " active";
-}
+                  }
+    function openPlotTab(evt, plot_num) {
+      var i, tabcontent, tablinks;
 
-    </script>
+  tablinks = document.getElementsByClassName("plot-tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+      evt.currentTarget.className += " active";
+
+      socket.emit("get_plot", {"plot_num": plot_num})
+}
+                  </script>
+
+  <script src="static/js/render.js"></script>
+
 </body>
 </html>

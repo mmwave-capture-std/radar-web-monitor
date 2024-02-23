@@ -1,11 +1,19 @@
 <div>
   <div>
     <label>📡 Radar</label>
-    <button id="cmdButton2" data-command="poetry run mmwavecapture-std configs/cascaded_realsense.toml && poetry">Record & Process</button>
+    <button id="cmdButton2" data-command="./run_cap.sh">Record & Process</button>
   </div>
   <div>
-    <div id="result">
+
+    <div class="tab">
+      {% for i in range(1, 11) %}
+      <button class="plot-tablinks active"
+              onclick="openPlotTab(event, {{i}})">
+        Plot {{i}}
+      </button>
+      {% endfor %}
     </div>
+    <canvas id="canvas" width="640" height="480"></canvas>
     <pre id="outputtab2"></pre>
   </div>
 </div>
