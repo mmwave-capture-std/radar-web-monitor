@@ -13,14 +13,17 @@
       </button>
       {% endfor %}
     </div>
-    <div>
-      <div id="inference-result"></div>
-      <div id="heatmap"></div>
-    </div>
-    <canvas id="canvas" width="640" height="480"></canvas>
 
+    <div class="flexer">
+      <div>
+        <div id="inference-result"></div>
+        <div id="heatmap"></div>
+      </div>
+      <div>
+        <pre id="outputtab2">test</pre>
+        <canvas id="canvas" width="640" height="480"></canvas>
+      </div>
     </div>
-    <pre id="outputtab2"></pre>
   </div>
 </div>
 
@@ -32,5 +35,15 @@
     background-size: 200px;
     background-repeat: no-repeat;
     border: 10px solid black;
+}
+
+.flexer {
+    display: flex;
+
+}
+
+.flexer > div {
+    margin-left: 30px;
+    margin-right: 30px;
 }
 </style>
