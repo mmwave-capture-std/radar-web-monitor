@@ -13,7 +13,24 @@
       </button>
       {% endfor %}
     </div>
+    <div>
+      <div id="inference-result"></div>
+      <div id="heatmap"></div>
+    </div>
     <canvas id="canvas" width="640" height="480"></canvas>
+
+    </div>
     <pre id="outputtab2"></pre>
   </div>
 </div>
+
+<style>
+#heatmap {
+    background-image: url(static/figure/Human_body_outline.png);
+    height: 360px;
+    width: 200px;
+    background-size: 200px;
+    background-repeat: no-repeat;
+    border: 10px solid black;
+}
+</style>

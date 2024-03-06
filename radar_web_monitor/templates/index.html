@@ -7,6 +7,7 @@
     <title>Command Executor</title>
     <script src="static/js/jquery.min.js"></script>
     <script src="static/js/socket.io.min.js"></script>
+    <script src="static/js/heatmap.min.js"></script>
     <style>
       #container {
           display: flex;
@@ -135,7 +136,12 @@
       evt.currentTarget.className += " active";
 
       socket.emit("get_plot", {"plot_num": plot_num})
-}
+    }
+
+    var heat = h337.create({
+      container: document.getElementById('heatmap')
+    });
+
                   </script>
 
   <script src="static/js/render.js"></script>

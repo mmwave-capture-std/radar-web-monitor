@@ -1,3 +1,4 @@
+
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -60,4 +61,16 @@ socket.on('data', function(data) {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   render(data, i);
+});
+
+socket.on("inference", function(data) {
+  if (data["most_possible_class"] === "without") {
+	document.getElementById("heatmap").style.border = "10px solid green";
+  } else {
+	document.getElementById("heatmap").style.border = "10px solid red";
+  }
+
+  document.getElementById("inference-result").innerHTML = data["most_possible_class"] + ": " + (Math.round(data["most_possible_class_probability"] * 100, 2)) + "%";
+
+  heat.setData({max: 1, data: data["heat_data"]})
 });
