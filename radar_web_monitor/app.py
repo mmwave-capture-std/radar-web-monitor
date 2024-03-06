@@ -60,6 +60,50 @@ def handle_get_plot(json):
     socketio.emit("data", {"data": data, "pk": plot_num})
 
 
+@socketio.on("inference_latest")
+def handle_inference_latest(json):
+    pickles = sorted(pathlib.Path("latest_fft").glob("*.pickle"))
+
+    from ConcealedWeaponDetection import test_single
+
+    (
+        classification,
+        left_chest,
+        right_chest,
+        left_pocket,
+        right_pocket,
+    ) = test_single.test(pickles[0], "ConcealedWeaponDetection/test_rd104")
+
+    right_chest = right_chest.astype(float).tolist()
+    left_chest = left_chest.astype(float).tolist()
+    right_pocket = right_pocket.astype(float).tolist()
+    left_pocket = left_pocket.astype(float).tolist()
+    classification = classification.astype(float)
+    classes = ["without", "left chest", "right chest", "left pocket", "right pocklet"]
+    most_possible = np.argmax(classification)
+    part_probabilities = np.array(
+        [left_chest, right_chest, left_pocket, right_pocket], dtype=float).tolist()
+
+    heat_data = [
+        {"x": 90, "y": 120, "value": right_chest[-1]},
+        {"x": 120, "y": 120, "value": left_chest[-1]},
+        {"x": 90, "y": 180, "value": right_pocket[-1]},
+        {"x": 120, "y": 180, "value": left_pocket[-1]},
+    ]
+
+    socketio.emit(
+        "inference",
+        {
+            "classification": classification.tolist(),
+            "classes": classes,
+            "most_possible_class": classes[most_possible],
+            "most_possible_class_probability": classification[most_possible],
+            "part_probabilities": part_probabilities,
+            "heat_data": heat_data,
+        },
+    )
+
+
 @socketio.on("execute_command")
 def handle_execute_command(json):
     command = json["command"]
