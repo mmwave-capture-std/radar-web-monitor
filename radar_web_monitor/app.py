@@ -82,14 +82,35 @@ def handle_inference_latest(json):
     classes = ["without", "left chest", "right chest", "left pocket", "right pocklet"]
     most_possible = np.argmax(classification)
     part_probabilities = np.array(
-        [left_chest, right_chest, left_pocket, right_pocket], dtype=float).tolist()
+        [left_chest, right_chest, left_pocket, right_pocket], dtype=float
+    ).tolist()
 
-    heat_data = [
-        {"x": 90, "y": 120, "value": right_chest[-1]},
-        {"x": 120, "y": 120, "value": left_chest[-1]},
-        {"x": 90, "y": 180, "value": right_pocket[-1]},
-        {"x": 120, "y": 180, "value": left_pocket[-1]},
-    ]
+    heat_data = []
+    threshold = 0.5
+
+    # Right chest
+    if right_chest[-1] > threshold:
+        for x in range(75, 100, 2):
+            for y in range(100, 160, 2):
+                heat_data.append({"x": x, "y": y, "value": right_chest[-1]})
+
+    # Left chest
+    if left_chest[-1] > threshold:
+        for x in range(110, 135, 2):
+            for y in range(100, 160, 2):
+                heat_data.append({"x": x, "y": y, "value": left_chest[-1]})
+
+    # Right pocket
+    if right_pocket[-1] > threshold:
+        for x in range(70, 100, 2):
+            for y in range(170, 230, 2):
+                heat_data.append({"x": x, "y": y, "value": right_pocket[-1]})
+
+    # Left pocket
+    if left_pocket[-1] > threshold:
+        for x in range(110, 140, 2):
+            for y in range(170, 230, 2):
+                heat_data.append({"x": x, "y": y, "value": left_pocket[-1]})
 
     socketio.emit(
         "inference",
