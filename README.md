@@ -1,6 +1,9 @@
 Radar Web Monitor
 =================
 
+## Prerequisites
+
+* libpcap
 
 ## Setup
 
