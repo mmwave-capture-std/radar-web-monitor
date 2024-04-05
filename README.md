@@ -4,6 +4,7 @@ Radar Web Monitor
 ## Prerequisites
 
 * libpcap
+* librealsense (by mmwave-capture-std)
 
 ## Setup
 
