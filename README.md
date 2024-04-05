@@ -6,6 +6,7 @@ Radar Web Monitor
 * libpcap
 * librealsense (by mmwave-capture-std)
 * protobuf (libprotoc-dev, protobuf-compiler)
+* gunicorn
 
 ## Setup
 
