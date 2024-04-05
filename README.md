@@ -11,8 +11,9 @@ Radar Web Monitor
 
 ```
 poetry install
-scripts/build_gRPC_server.sh
-cd scripts/install_systemctl_user_unit.sh
+./scripts/build_gRPC_server.sh
+cd scripts
+./install_systemctl_user_unit.sh
 cd ..
 
 systemctl --user enable radar-web-monitor
